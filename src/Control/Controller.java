@@ -19,7 +19,6 @@ public class Controller {
         String escolha;
         ArrayList<Carros> listaDecarrosCombustao = new ArrayList<Carros>();
         ArrayList<Carros> listaDecarrosEletricos = new ArrayList<Carros>();
-        ArrayList<Carros> listaTotal= new ArrayList<Carros>();
         do {
             opcao = EntradaSaida.solicitaOpcao();
 

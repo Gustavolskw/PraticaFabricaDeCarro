@@ -9,7 +9,6 @@ public class Fabrica {
     private  int quantidadeProduzida;
     protected ArrayList<Carros> listaDecarrosEletricos = new ArrayList<Carros>();
     protected ArrayList<Carros> listaDecarrosCombustao = new ArrayList<Carros>();
-    protected ArrayList<Carros> listaTotal = new ArrayList<Carros>();
 
     public int getQuantidadeProduzida() {
         return quantidadeProduzida;
@@ -19,14 +18,6 @@ public class Fabrica {
         this.quantidadeProduzida = quantidadeProduzida;
     }
 
-
-    public ArrayList<Carros> getListaTotal() {
-        return listaTotal;
-    }
-
-    public void setListaTotal(ArrayList<Carros> listaTotal) {
-        this.listaTotal = listaTotal;
-    }
 
     public String getTipoDeCarro() {
         return tipoDeCarro;

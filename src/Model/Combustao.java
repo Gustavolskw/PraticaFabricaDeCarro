@@ -12,11 +12,5 @@ public class Combustao extends Carros{
     public void setTipoDeMotor(String tipoDeMotor) {
         this.tipoDeMotor = tipoDeMotor;
     }
-    public void criarCarro(String marcha, int qtdPortas, String cor, String modelo, Object escolha){
-        setMarcha(marcha);
-        setQtdPortas(qtdPortas);
-        setCor(cor);
-        setModelo(modelo);
-        setTipoDeMotor((String) escolha);
-    }
+
 }
