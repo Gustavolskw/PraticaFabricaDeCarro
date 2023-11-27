@@ -1,10 +1,14 @@
 package View;
 
+import Control.Controller;
 import Model.Combustao;
+import Model.Eletrico;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class EntradaSaida {
+    Controller controler = new Controller();
     public static int solicitaOpcao() {
         String[] opcoes = {"Fabricar Carro", "Ver Lista De Modelos", "Comprar Carro"};
         JComboBox<String> menu = new JComboBox<>(opcoes);
@@ -13,18 +17,45 @@ public class EntradaSaida {
     }
 
     public static String solicitaCor(int ordem) {
-        return JOptionPane.showInputDialog(null, "Escreva a cor desejada do seu Caro", ordem+"º Carro", -1 );
+        String[] opcoes = {"Branco", "Preto", "Azul", "Cinza", "Vermelho"};
+        int escolha =  JOptionPane.showOptionDialog(null, "Escreva a cor desejada do seu Caro", ordem+"º Carro", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0] );
+        if (escolha == 0){
+            return "Branco";
+        }else if (escolha==1){
+            return "Preto";
+        } else if (escolha == 2) {
+            return "Azul";
+        } else if (escolha==3) {
+            return "Cinza";
+        } else {
+            return "Vermelho";
+        }
     }
 
-    public static String solicitaModelo(int ordem) {
-return JOptionPane.showInputDialog(null, "Qual o modelo de carro que você deseja ?", ordem+"º Carro", -1 );
+    public static String solicitaModelo(int ordem){
+        String[] modelos = {"SUV", "Esportivo", "Popular", "Camionete"};
+        int escolha =  JOptionPane.showOptionDialog(null, "Qual o modelo de carro que você deseja ?", ordem+"º Carro", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, modelos, modelos[2]);
+        if(escolha == 0){
+        return "SUV";
+        }else if(escolha == 1 ) {
+            return "Esportivo";
+        }else if(escolha == 2){
+            return "Popular";
+        }else {
+            return "Camionete";
+        }
     }
 
-    public static int solicitaTipo() {
+    public static String  solicitaTipo() {
 
         String[] opcoes = {"Elétrico", "Combustão"};
-        return JOptionPane.showOptionDialog(null, "Escolha Qual o modelo do veiculo", "Modelo",
+        int escolh = JOptionPane.showOptionDialog(null, "Escolha Qual o modelo do veiculo", "Modelo",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes);
+        if (escolh == 0 ){
+            return "Elétrico";
+        }else{
+        return "Combustão";
+        }
     }
 
     public static int solicitaquantidadeProduzida(String tipoDeCarro) {
@@ -43,7 +74,13 @@ return JOptionPane.showInputDialog(null, "Qual o modelo de carro que você desej
     }
 
     public static int solicitaQtdPortas(int ordem) {
-        return Integer.parseInt(JOptionPane.showInputDialog(null, "Qauntidade de portas que você deseja ter no seu carro", ordem+"º Carro", -1 ));
+        String [] opcoes = {"2","4"};
+        int escolha =  JOptionPane.showOptionDialog(null, "Quantidade de portas que você deseja ter no seu carro", ordem+"º Carro", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[1]);
+        if (escolha == 0){
+            return 2;
+        }else {
+            return 4;
+        }
     }
 
     public static int solicitaQtdBaterias(int ordem) {
@@ -61,5 +98,20 @@ return JOptionPane.showInputDialog(null, "Qual o modelo de carro que você desej
         }else{
             return "Flex";
         }
+    }
+
+
+    public static void semCarroFabricado() {
+        JOptionPane.showMessageDialog(null, "Não há carros produzidos ainda", "Sem Carros", JOptionPane.ERROR_MESSAGE);
+    }
+    public static void exibeListas(String informacoes){
+        JOptionPane.showMessageDialog(null, informacoes, "Listas de carros Fabricados", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public static int solicitaEscolhaDeCarro() {
+        return 0;
+    }
+    public static void msgEncerraPrograma(){
+        JOptionPane.showMessageDialog(null, "O programa será encerrado");
     }
 }

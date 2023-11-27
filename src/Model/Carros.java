@@ -3,6 +3,7 @@ package Model;
 import java.util.ArrayList;
 
 public abstract class Carros implements ICarros{
+    protected String tipoDeCarro;
     protected String marcha;
     protected int qtdPortas;
     protected String cor;
@@ -41,6 +42,22 @@ public abstract class Carros implements ICarros{
         this.modelo = modelo;
     }
 
+    public String getTipoDeCarro() {
+        return tipoDeCarro;
+    }
 
+    public void setTipoDeCarro(String tipoDeCarro) {
+        this.tipoDeCarro = tipoDeCarro;
+    }
+
+    public String getTipoDeMotor() {
+        Combustao combustao = new Combustao();
+        return combustao.tipoDeMotor;
+    }
+
+    public int getQtdBaterias() {
+        Eletrico eletrico =new Eletrico();
+        return eletrico.qtdBaterias;
+    }
 }
 

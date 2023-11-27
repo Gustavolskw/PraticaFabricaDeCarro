@@ -12,62 +12,82 @@ import java.util.ArrayList;
 
 public class Controller {
     private Fabrica fabrica =null;
+
     public void exibeMenu() {
-        int opcao = EntradaSaida.solicitaOpcao();
+        int opcao;
+        boolean carroPronto = false;
+        String escolha;
+        ArrayList<Carros> listaDecarrosCombustao = new ArrayList<Carros>();
+        ArrayList<Carros> listaDecarrosEletricos = new ArrayList<Carros>();
+        ArrayList<Carros> listaTotal= new ArrayList<Carros>();
+        do {
+            opcao = EntradaSaida.solicitaOpcao();
 
-        switch (opcao) {
+            String listaDeCarrosList = "";
+            switch (opcao) {
+                case 0:
+                    JOptionPane.showMessageDialog(null, "Construir um Novo Carro", "Construir Carro", JOptionPane.INFORMATION_MESSAGE);
+                    this.fabrica = new Fabrica();
+                    String tipoDeCarro = EntradaSaida.solicitaTipo();
+                    if (tipoDeCarro.equals("Elétrico")) {
+                        escolha =  "Elétrico";
+                        fabrica.setQuantidadeProduzida(EntradaSaida.solicitaquantidadeProduzida("Elétrico"));
+                        for (int i = 0; i < this.fabrica.getQuantidadeProduzida(); i++) {
+                            listaDecarrosEletricos.add(fabrica.fabricarCarroEletrc(i, escolha));
+                        }
 
-            case 0:
-                JOptionPane.showMessageDialog(null, "Construir um Novo Carro", "Construir Carro", JOptionPane.INFORMATION_MESSAGE);
-                this.fabrica = new Fabrica();
-                int tipoDeCarro = EntradaSaida.solicitaTipo();
-                ArrayList<Eletrico> listaDecarrosEletricos = new ArrayList<Eletrico>();
-                ArrayList<Combustao> listaDecarrosCombustao = new ArrayList<Combustao>();
-                if( tipoDeCarro == 0){
-                    fabrica.setQuantidadeProduzida(EntradaSaida.solicitaquantidadeProduzida("Elétrico"));
-                    for(int i = 0; i< this.fabrica.getQuantidadeProduzida(); i++){
-                        Eletrico eletrico = new Eletrico();
-                        eletrico.setMarcha(EntradaSaida.solicitaMarcha((i+1)));
-                        eletrico.setQtdPortas(EntradaSaida.solicitaQtdPortas((i+1)));
-                        eletrico.setCor(EntradaSaida.solicitaCor((i+1)));
-                        eletrico.setModelo(EntradaSaida.solicitaModelo((i+1)));
-                        eletrico.setQtdBaterias(EntradaSaida.solicitaQtdBaterias((i+1)));
-                        listaDecarrosEletricos.add(eletrico);
+                    } else {
+                        fabrica.setQuantidadeProduzida(EntradaSaida.solicitaquantidadeProduzida("Combustão"));
+                        escolha = "Combustão";
+                        for (int i = 0; i < this.fabrica.getQuantidadeProduzida(); i++) {
+                            listaDecarrosCombustao.add(fabrica.fabricaCarroCombst(i, escolha));
+                        }
 
                     }
+                    this.fabrica.criarListasDeCarros(listaDecarrosEletricos, listaDecarrosCombustao);
+                    if (tipoDeCarro.equals("Elétrico")) {
 
-                }else {
-                    fabrica.setQuantidadeProduzida(EntradaSaida.solicitaquantidadeProduzida("Combustão"));
-                    for (int i = 0; i < this.fabrica.getQuantidadeProduzida(); i++) {
-                        Combustao combustao = new Combustao();
-                        combustao.setMarcha(EntradaSaida.solicitaMarcha((i + 1)));
-                        combustao.setQtdPortas(EntradaSaida.solicitaQtdPortas((i + 1)));
-                        combustao.setCor(EntradaSaida.solicitaCor((i + 1)));
-                        combustao.setModelo(EntradaSaida.solicitaModelo((i + 1)));
-                        combustao.setTipoDeMotor(EntradaSaida.solicitaTipoDeMotor((i + 1)));
-                        listaDecarrosCombustao.add(combustao);
+                        for (Carros eletricos : fabrica.getListaDecarrosEletricos()) {
+                            System.out.println("Tipo de Carro: "+ eletricos.getTipoDeCarro());
+                            System.out.println("Marcha: " + eletricos.getMarcha());
+                            System.out.println("Quantidade de portas; " + eletricos.getQtdPortas());
+                            System.out.println("Cor: " + eletricos.getCor());
+                            System.out.println("Modelo: " + eletricos.getModelo());
+                            System.out.println("Quantidade de baterias: " + eletricos.getQtdBaterias());
+                        }
+                    }else {
+                        for (Carros combustaos : fabrica.getListaDecarrosCombustao()) {
+                            System.out.println("Tipo de Carro: "+ combustaos.getTipoDeCarro());
+                            System.out.println("Marcha: " + combustaos.getMarcha());
+                            System.out.println("Quantidade de portas; " + combustaos.getQtdPortas());
+                            System.out.println("Cor: " + combustaos.getCor());
+                            System.out.println("Modelo: " + combustaos.getModelo());
+                            System.out.println("Tipo de Motor: " + combustaos.getTipoDeMotor());
+                        }
                     }
-                }
-                this.fabrica.setListaDecarrosEletricos(listaDecarrosEletricos);
-                for (Eletrico eletricos : fabrica.getListaDecarrosEletricos()){
-                    System.out.println("Marcha: "+ eletricos.getMarcha());
-                    System.out.println("Quantidade de portas; "+ eletricos.getQtdPortas());
-                    System.out.println("Cor: "+ eletricos.getCor());
-                    System.out.println("Modelo: "+ eletricos.getModelo());
-                    System.out.println("Quantidade de baterias: "+ eletricos.getQtdBaterias());
-                }
-                this.fabrica.setListaDecarrosCombustao(listaDecarrosCombustao);
-                for (Combustao combustaos : fabrica.getListaDecarrosCombustao()){
-                    System.out.println("Marcha: "+ combustaos.getMarcha());
-                    System.out.println("Quantidade de portas; "+ combustaos.getQtdPortas());
-                    System.out.println("Cor: "+ combustaos.getCor());
-                    System.out.println("Modelo: "+ combustaos.getModelo());
-                    System.out.println("Quantidade de baterias: "+ combustaos.getTipoDeMotor());
-                }
 
+                    carroPronto = true;
+                    break;
+                case 1:
+                    if (!carroPronto) {
+                        EntradaSaida.semCarroFabricado();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Ver lista de Modelos");
+                        listaDeCarrosList += this.fabrica.gerarlistas();
+                        EntradaSaida.exibeListas(listaDeCarrosList);
+                    }
+                    break;
+                case 2:
+                    JOptionPane.showMessageDialog(null, "Comprar Carros.");
 
-        }
+                   listaDeCarrosList = this.fabrica.gerarlistas();
+                    int escolhaDeCarro = EntradaSaida.solicitaEscolhaDeCarro();
+
+                    break;
+
+            }
+        }while(opcao!=3);
+        EntradaSaida.msgEncerraPrograma();
+        System.exit(0);
     }
-
-
 }
