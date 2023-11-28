@@ -9,8 +9,9 @@ public class Fabrica {
     private  int quantidadeProduzida;
     protected ArrayList<Carros> listaDecarrosEletricos = new ArrayList<Carros>();
     protected ArrayList<Carros> listaDecarrosCombustao = new ArrayList<Carros>();
-
-    public int getQuantidadeProduzida() {
+	 protected ArrayList<Carros> listaDecarros = new ArrayList<Carros>();
+	 
+	 public int getQuantidadeProduzida() {
         return quantidadeProduzida;
     }
 
@@ -48,6 +49,7 @@ public class Fabrica {
     public void criarListasDeCarros(  ArrayList<Carros> listaDecarrosEletricos, ArrayList<Carros> listaDecarrosCombustao ){
     setListaDecarrosEletricos(listaDecarrosEletricos);
     setListaDecarrosCombustao(listaDecarrosCombustao);
+	
 
     }
     public String gerarlistas() {
@@ -83,5 +85,28 @@ public class Fabrica {
         combustao.setTipoDeMotor(EntradaSaida.solicitaTipoDeMotor((i + 1)));
         return combustao;
     }
-
+	
+	 public void  ComprarCarro(){
+		  ArrayList<Carros> listaDeCarros = new ArrayList<Carros>();
+		  String tipoCompra = EntradaSaida.solicitaTipo();
+		  if (tipoCompra.equals("Elétrico")) {
+			   listaDeCarros = getListaDecarrosEletricos();
+		  }else {
+			   listaDeCarros= getListaDecarrosCombustao();
+		  }
+		  int escolhaDeCarro = EntradaSaida.solicitaEscolhaDeCarro(listaDeCarros, tipoCompra);
+		  String[] list= new String[1];
+		  if(tipoCompra.equalsIgnoreCase("Elétrico")) {
+			   for (int i = 0; i < 1; i++) {
+					list[i] = "Tipo " + listaDeCarros.get(i).getTipoDeCarro() + " | Modelo - " + listaDeCarros.get(i).getModelo() + " | Cor - " + listaDeCarros.get(i).getCor() + " | Portas - " + listaDeCarros.get(i).getQtdPortas() + " | Marcha - " + listaDeCarros.get(i).getMarcha()+ " | Baterias - "+ listaDeCarros.get(i).getQtdBaterias();
+			   }
+		  }else{
+			   for (int i = 0; i < 1; i++) {
+					list[i] = "Tipo " + listaDeCarros.get(i).getTipoDeCarro() + " | Modelo - " + listaDeCarros.get(i).getModelo() + " | Cor - " + listaDeCarros.get(i).getCor() + " | Portas - " + listaDeCarros.get(i).getQtdPortas() + " | Marcha - " + listaDeCarros.get(i).getMarcha()+ " | Motor - "+ listaDeCarros.get(i).getTipoDeMotor();
+			   }
+		  }
+		  EntradaSaida.mostraCarroComprado(list[0] );
+		  listaDeCarros.remove(escolhaDeCarro);
+		  
+	 }
 }

@@ -19,6 +19,8 @@ public class Controller {
         String escolha;
         ArrayList<Carros> listaDecarrosCombustao = new ArrayList<Carros>();
         ArrayList<Carros> listaDecarrosEletricos = new ArrayList<Carros>();
+		 
+		
         do {
             opcao = EntradaSaida.solicitaOpcao();
 
@@ -33,6 +35,7 @@ public class Controller {
                         fabrica.setQuantidadeProduzida(EntradaSaida.solicitaquantidadeProduzida("Elétrico"));
                         for (int i = 0; i < this.fabrica.getQuantidadeProduzida(); i++) {
                             listaDecarrosEletricos.add(fabrica.fabricarCarroEletrc(i, escolha));
+							 
                         }
 
                     } else {
@@ -40,6 +43,7 @@ public class Controller {
                         escolha = "Combustão";
                         for (int i = 0; i < this.fabrica.getQuantidadeProduzida(); i++) {
                             listaDecarrosCombustao.add(fabrica.fabricaCarroCombst(i, escolha));
+							 
                         }
 
                     }
@@ -77,13 +81,13 @@ public class Controller {
                     }
                     break;
                 case 2:
-                    JOptionPane.showMessageDialog(null, "Comprar Carros.");
-
-                   listaDeCarrosList = this.fabrica.gerarlistas();
-                    int escolhaDeCarro = EntradaSaida.solicitaEscolhaDeCarro();
-
+					 if (!carroPronto) {
+						  EntradaSaida.semCarroFabricado();
+					 } else {
+						  JOptionPane.showMessageDialog(null, "Comprar Carros.");
+						 fabrica.ComprarCarro();
+					 }
                     break;
-
             }
         }while(opcao!=3);
         EntradaSaida.msgEncerraPrograma();

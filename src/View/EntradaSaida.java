@@ -1,8 +1,7 @@
 package View;
 
 import Control.Controller;
-import Model.Combustao;
-import Model.Eletrico;
+import Model.Carros;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -10,7 +9,7 @@ import java.util.ArrayList;
 public class EntradaSaida {
     Controller controler = new Controller();
     public static int solicitaOpcao() {
-        String[] opcoes = {"Fabricar Carro", "Ver Lista De Modelos", "Comprar Carro"};
+        String[] opcoes = {"Fabricar Carro", "Ver Lista De Modelos", "Comprar Carro", "Sair"};
         JComboBox<String> menu = new JComboBox<>(opcoes);
         JOptionPane.showConfirmDialog(null, menu, "Selecione a opcao que deseja executar.", JOptionPane.DEFAULT_OPTION);
         return menu.getSelectedIndex();
@@ -108,10 +107,28 @@ public class EntradaSaida {
         JOptionPane.showMessageDialog(null, informacoes, "Listas de carros Fabricados", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public static int solicitaEscolhaDeCarro() {
-        return 0;
-    }
+    public static int solicitaEscolhaDeCarro(ArrayList<Carros> listaDeCarros, String tipoDeCarro) {
+		 int qtdCarros = listaDeCarros.size();
+		 
+		 String[] modeloCarros = new String[qtdCarros];
+		 for(int  i = 0; i<qtdCarros; i++){
+			  modeloCarros[i] = "Modelo - "+listaDeCarros.get(i).getModelo() +" | Cor - "+ listaDeCarros.get(i).getCor() +" | Portas - "+ listaDeCarros.get(i).getQtdPortas()+" | Marcha - "+ listaDeCarros.get(i).getMarcha(); ;
+		 }
+		 String msg = "Escolha O Carro "+tipoDeCarro+" a ser comprado";
+		 JComboBox exibicaoCarros = new JComboBox(modeloCarros);
+		 int confirmacao = JOptionPane.showConfirmDialog(null, exibicaoCarros, msg, JOptionPane.OK_CANCEL_OPTION);
+		 
+		 if(confirmacao == 0 ){
+			  return exibicaoCarros.getSelectedIndex();
+		 }else{
+			  return  -1 ;
+		 }
+	}
     public static void msgEncerraPrograma(){
         JOptionPane.showMessageDialog(null, "O programa será encerrado");
     }
+	 
+	 public static void mostraCarroComprado(String carros) {
+		 JOptionPane.showMessageDialog(null, carros, "Carro Comprado!", JOptionPane.INFORMATION_MESSAGE);
+	 }
 }
